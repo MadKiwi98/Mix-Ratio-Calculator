@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratio Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ratio Calculator</h1>
+
+    <label for="volume">Volume Delivered (L):</label>
+    <input type="number" id="volume" placeholder="Enter volume in liters" oninput="calculateRatio()">
+
+    <label for="concentrate">Concentrate Used (L):</label>
+    <input type="number" id="concentrate" placeholder="Enter concentrate in liters" oninput="calculateRatio()">
+
+    <div id="result">Ratio: 1:0</div>
+
+    <script>
+        function calculateRatio() {
+            const volume = parseFloat(document.getElementById('volume').value);
+            const concentrate = parseFloat(document.getElementById('concentrate').value);
+            const resultDiv = document.getElementById('result');
+
+            if (!isNaN(volume) && !isNaN(concentrate) && concentrate > 0) {
+                const ratio = (volume / concentrate).toFixed(2);
+                resultDiv.textContent = `Ratio: 1:${ratio}`;
+            } else {
+                resultDiv.textContent = 'Ratio: 1:0';
+            }
+        }
+    </script>
+</body>
+</html>
