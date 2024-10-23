@@ -7,42 +7,61 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
         }
-        label, input {
-            display: block;
+        .calculator {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            padding: 10px;
             margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
-        #result {
-            font-weight: bold;
+        .result {
+            font-size: 24px;
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Ratio Calculator</h1>
 
-    <label for="volume">Volume Delivered (L):</label>
-    <input type="number" id="volume" placeholder="Enter volume in liters" oninput="calculateRatio()">
+<div class="calculator">
+    <h2>Ratio Calculator</h2>
+    
+    <label for="volumeDelivered">Volume Delivered (L):</label>
+    <input type="number" id="volumeDelivered" placeholder="Enter volume delivered" oninput="calculateRatio()" step="any">
+    
+    <label for="concentrateUsed">Concentrate Used (L):</label>
+    <input type="number" id="concentrateUsed" placeholder="Enter concentrate used" oninput="calculateRatio()" step="any">
+    
+    <div class="result" id="result">Ratio: 1:0</div>
+</div>
 
-    <label for="concentrate">Concentrate Used (L):</label>
-    <input type="number" id="concentrate" placeholder="Enter concentrate in liters" oninput="calculateRatio()">
-
-    <div id="result">Ratio: 1:0</div>
-
-    <script>
-        function calculateRatio() {
-            const volume = parseFloat(document.getElementById('volume').value);
-            const concentrate = parseFloat(document.getElementById('concentrate').value);
-            const resultDiv = document.getElementById('result');
-
-            if (!isNaN(volume) && !isNaN(concentrate) && concentrate > 0) {
-                const ratio = (volume / concentrate).toFixed(2);
-                resultDiv.textContent = `Ratio: 1:${ratio}`;
-            } else {
-                resultDiv.textContent = 'Ratio: 1:0';
-            }
+<script>
+    function calculateRatio() {
+        let volumeDelivered = parseFloat(document.getElementById('volumeDelivered').value);
+        let concentrateUsed = parseFloat(document.getElementById('concentrateUsed').value);
+        
+        if (!isNaN(volumeDelivered) && !isNaN(concentrateUsed) && concentrateUsed > 0) {
+            let ratio = (volumeDelivered / concentrateUsed).toFixed(2);
+            document.getElementById('result').innerText = `Ratio: 1:${ratio}`;
+        } else {
+            document.getElementById('result').innerText = 'Ratio: 1:0';
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>
