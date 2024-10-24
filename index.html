@@ -37,6 +37,10 @@
             line-height: 35px; /* Center text vertically */
             background-color: #fafafa;
             width: 45%; /* Set width to fit in the container */
+            transition: background-color 0.3s; /* Smooth transition for color change */
+        }
+        .input-display.active {
+            background-color: #e0f7fa; /* Change to light cyan when active */
         }
         h2 {
             font-size: 16px;
@@ -96,6 +100,7 @@
         <button onclick="appendNumber('9')">9</button>
         <button onclick="clearInput()">C</button>
         <button onclick="appendNumber('0')">0</button>
+        <button onclick="appendDecimal()">.</button>
         <button onclick="removeLast()">←</button>
     </div>
 </div>
@@ -111,8 +116,18 @@
 
     function appendNumber(num) {
         const display = document.getElementById(`${currentInput}Display`);
+        // Allow appending numbers only if display is not '0'
         display.innerText = display.innerText === '0' ? num : display.innerText + num;
         updateDisplay(display.innerText);
+    }
+
+    function appendDecimal() {
+        const display = document.getElementById(`${currentInput}Display`);
+        // Prevent adding multiple decimals
+        if (!display.innerText.includes('.')) {
+            display.innerText += '.';
+            updateDisplay(display.innerText);
+        }
     }
 
     function clearInput() {
@@ -141,12 +156,25 @@
 
     // Set focus to the first input display on page load
     document.getElementById('volumeDeliveredDisplay').addEventListener('click', function() {
-        currentInput = 'volumeDelivered';
+        setActiveDisplay('volumeDelivered');
     });
 
     document.getElementById('concentrateUsedDisplay').addEventListener('click', function() {
-        currentInput = 'concentrateUsed';
+        setActiveDisplay('concentrateUsed');
     });
+
+    function setActiveDisplay(input) {
+        currentInput = input;
+        const volumeDisplay = document.getElementById('volumeDeliveredDisplay');
+        const concentrateDisplay = document.getElementById('concentrateUsedDisplay');
+
+        // Remove active class from both displays
+        volumeDisplay.classList.remove('active');
+        concentrateDisplay.classList.remove('active');
+
+        // Add active class to the selected display
+        document.getElementById(`${input}Display`).classList.add('active');
+    }
 </script>
 
 </body>
