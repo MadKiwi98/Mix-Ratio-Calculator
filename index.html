@@ -16,27 +16,45 @@
         }
         .calculator {
             background-color: white;
-            padding: 8px; /* Reduced padding */
+            padding: 8px;
             border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 200px; /* Reduced width */
+            width: 200px;
         }
         input {
-            padding: 4px; /* Reduced padding */
-            margin: 4px 0; /* Reduced margin */
+            padding: 4px;
+            margin: 4px 0;
             width: 100%;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 12px; /* Reduced font size */
+            font-size: 12px;
+            display: none; /* Hide the standard input */
         }
         h2 {
-            font-size: 14px; /* Reduced font size */
-            margin-bottom: 8px; /* Reduced margin */
+            font-size: 14px;
+            margin-bottom: 8px;
         }
         .result {
-            font-size: 16px; /* Reduced font size */
-            margin-top: 8px; /* Reduced margin */
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .keypad button {
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+        .keypad button:hover {
+            background-color: #e0e0e0;
         }
     </style>
 </head>
@@ -52,9 +70,55 @@
     <input type="number" id="concentrateUsed" placeholder="Concentrate" oninput="calculateRatio()" step="any">
     
     <div class="result" id="result">Ratio: 1:0</div>
+
+    <!-- Numeric Keypad -->
+    <div class="keypad" id="keypad">
+        <button onclick="appendNumber('1')">1</button>
+        <button onclick="appendNumber('2')">2</button>
+        <button onclick="appendNumber('3')">3</button>
+        <button onclick="appendNumber('4')">4</button>
+        <button onclick="appendNumber('5')">5</button>
+        <button onclick="appendNumber('6')">6</button>
+        <button onclick="appendNumber('7')">7</button>
+        <button onclick="appendNumber('8')">8</button>
+        <button onclick="appendNumber('9')">9</button>
+        <button onclick="clearInput()">C</button>
+        <button onclick="appendNumber('0')">0</button>
+        <button onclick="removeLast()">←</button>
+    </div>
 </div>
 
 <script>
+    let currentInput = null;
+
+    // Show keypad and set the current input field
+    function showKeypad(inputId) {
+        currentInput = document.getElementById(inputId);
+        currentInput.style.display = 'block'; // Display the input
+        currentInput.focus(); // Keep focus on the input
+    }
+
+    function appendNumber(num) {
+        if (currentInput) {
+            currentInput.value += num;
+            calculateRatio();
+        }
+    }
+
+    function clearInput() {
+        if (currentInput) {
+            currentInput.value = '';
+            calculateRatio();
+        }
+    }
+
+    function removeLast() {
+        if (currentInput) {
+            currentInput.value = currentInput.value.slice(0, -1);
+            calculateRatio();
+        }
+    }
+
     function calculateRatio() {
         let volumeDelivered = parseFloat(document.getElementById('volumeDelivered').value);
         let concentrateUsed = parseFloat(document.getElementById('concentrateUsed').value);
@@ -67,6 +131,15 @@
             document.getElementById('result').innerText = 'Ratio: 1:0';
         }
     }
+    
+    // Attach event listeners to input fields to show keypad
+    document.getElementById('volumeDelivered').addEventListener('focus', function() {
+        showKeypad('volumeDelivered');
+    });
+    
+    document.getElementById('concentrateUsed').addEventListener('focus', function() {
+        showKeypad('concentrateUsed');
+    });
 </script>
 
 </body>
