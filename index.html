@@ -22,14 +22,15 @@
             text-align: center;
             width: 200px;
         }
-        input {
-            padding: 4px;
-            margin: 4px 0;
-            width: 100%;
+        .input-display {
+            padding: 10px;
+            margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 12px;
-            display: none; /* Hide the standard input */
+            font-size: 16px;
+            height: 35px; /* Set height for display area */
+            line-height: 35px; /* Center text vertically */
+            background-color: #fafafa;
         }
         h2 {
             font-size: 14px;
@@ -63,11 +64,11 @@
 <div class="calculator">
     <h2>Venturi Mix Ratio Calculator</h2>
     
-    <label for="volumeDelivered">Total Volume Delivered (L):</label>
-    <input type="number" id="volumeDelivered" placeholder="Volume" oninput="calculateRatio()" step="any">
+    <label>Total Volume Delivered (L):</label>
+    <div class="input-display" id="volumeDeliveredDisplay">0</div>
     
-    <label for="concentrateUsed">Concentrate Used (L):</label>
-    <input type="number" id="concentrateUsed" placeholder="Concentrate" oninput="calculateRatio()" step="any">
+    <label>Concentrate Used (L):</label>
+    <div class="input-display" id="concentrateUsedDisplay">0</div>
     
     <div class="result" id="result">Ratio: 1:0</div>
 
@@ -89,39 +90,34 @@
 </div>
 
 <script>
-    let currentInput = null;
+    let currentInput = 'volumeDelivered'; // Track which input field is currently being filled
 
-    // Show keypad and set the current input field
-    function showKeypad(inputId) {
-        currentInput = document.getElementById(inputId);
-        currentInput.style.display = 'block'; // Display the input
-        currentInput.focus(); // Keep focus on the input
+    // Function to update the display for the respective field
+    function updateDisplay(value) {
+        document.getElementById(`${currentInput}Display`).innerText = value;
+        calculateRatio();
     }
 
     function appendNumber(num) {
-        if (currentInput) {
-            currentInput.value += num;
-            calculateRatio();
-        }
+        const display = document.getElementById(`${currentInput}Display`);
+        display.innerText = display.innerText === '0' ? num : display.innerText + num;
+        updateDisplay(display.innerText);
     }
 
     function clearInput() {
-        if (currentInput) {
-            currentInput.value = '';
-            calculateRatio();
-        }
+        updateDisplay('0');
     }
 
     function removeLast() {
-        if (currentInput) {
-            currentInput.value = currentInput.value.slice(0, -1);
-            calculateRatio();
-        }
+        const display = document.getElementById(`${currentInput}Display`);
+        const currentValue = display.innerText;
+        display.innerText = currentValue.length > 1 ? currentValue.slice(0, -1) : '0';
+        updateDisplay(display.innerText);
     }
 
     function calculateRatio() {
-        let volumeDelivered = parseFloat(document.getElementById('volumeDelivered').value);
-        let concentrateUsed = parseFloat(document.getElementById('concentrateUsed').value);
+        let volumeDelivered = parseFloat(document.getElementById('volumeDeliveredDisplay').innerText);
+        let concentrateUsed = parseFloat(document.getElementById('concentrateUsedDisplay').innerText);
         
         if (!isNaN(volumeDelivered) && !isNaN(concentrateUsed) && concentrateUsed > 0 && volumeDelivered > concentrateUsed) {
             let waterUsed = volumeDelivered - concentrateUsed;
@@ -131,14 +127,14 @@
             document.getElementById('result').innerText = 'Ratio: 1:0';
         }
     }
-    
-    // Attach event listeners to input fields to show keypad
-    document.getElementById('volumeDelivered').addEventListener('focus', function() {
-        showKeypad('volumeDelivered');
+
+    // Set focus to the first input display on page load
+    document.getElementById('volumeDeliveredDisplay').addEventListener('click', function() {
+        currentInput = 'volumeDelivered';
     });
-    
-    document.getElementById('concentrateUsed').addEventListener('focus', function() {
-        showKeypad('concentrateUsed');
+
+    document.getElementById('concentrateUsedDisplay').addEventListener('click', function() {
+        currentInput = 'concentrateUsed';
     });
 </script>
 
