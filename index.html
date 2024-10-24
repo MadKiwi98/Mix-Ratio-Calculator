@@ -16,21 +16,26 @@
         }
         .calculator {
             background-color: white;
-            padding: 8px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 200px;
+            width: 300px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
         .input-display {
             padding: 10px;
-            margin: 5px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-size: 16px;
             height: 35px; /* Set height for display area */
             line-height: 35px; /* Center text vertically */
             background-color: #fafafa;
+            width: 45%; /* Set width to fit in the container */
         }
         h2 {
             font-size: 14px;
@@ -64,11 +69,16 @@
 <div class="calculator">
     <h2>Venturi Mix Ratio Calculator</h2>
     
-    <label>Total Volume Delivered (L):</label>
-    <div class="input-display" id="volumeDeliveredDisplay">0</div>
-    
-    <label>Concentrate Used (L):</label>
-    <div class="input-display" id="concentrateUsedDisplay">0</div>
+    <div class="input-container">
+        <div>
+            <label>Total Volume Delivered (L):</label>
+            <div class="input-display" id="volumeDeliveredDisplay">0</div>
+        </div>
+        <div>
+            <label>Concentrate Used (L):</label>
+            <div class="input-display" id="concentrateUsedDisplay">0</div>
+        </div>
+    </div>
     
     <div class="result" id="result">Ratio: 1:0</div>
 
