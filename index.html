@@ -12,26 +12,31 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
         }
         .calculator {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 300px;
+            width: 250px;
         }
         input {
-            padding: 10px;
-            margin: 10px 0;
+            padding: 6px;
+            margin: 5px 0;
             width: 100%;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        h2 {
             font-size: 16px;
+            margin-bottom: 10px;
         }
         .result {
-            font-size: 24px;
-            margin-top: 20px;
+            font-size: 18px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -41,7 +46,7 @@
     <h2>Venturi Mix Ratio Calculator</h2>
     
     <label for="volumeDelivered">Total Volume Delivered (L):</label>
-    <input type="number" id="volumeDelivered" placeholder="Enter total volume delivered" oninput="calculateRatio()" step="any">
+    <input type="number" id="volumeDelivered" placeholder="Enter total volume" oninput="calculateRatio()" step="any">
     
     <label for="concentrateUsed">Concentrate Used (L):</label>
     <input type="number" id="concentrateUsed" placeholder="Enter concentrate used" oninput="calculateRatio()" step="any">
@@ -55,9 +60,8 @@
         let concentrateUsed = parseFloat(document.getElementById('concentrateUsed').value);
         
         if (!isNaN(volumeDelivered) && !isNaN(concentrateUsed) && concentrateUsed > 0 && volumeDelivered > concentrateUsed) {
-            let waterUsed = volumeDelivered - concentrateUsed;  // Water is total delivered minus concentrate
-            let ratio = (waterUsed / concentrateUsed).toFixed(2); // Water-to-chemical ratio
-            
+            let waterUsed = volumeDelivered - concentrateUsed;
+            let ratio = (waterUsed / concentrateUsed).toFixed(2);
             document.getElementById('result').innerText = `Ratio: 1:${ratio}`;
         } else {
             document.getElementById('result').innerText = 'Ratio: 1:0';
