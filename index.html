@@ -16,71 +16,71 @@
         }
         .calculator {
             background-color: white;
-            padding: 8px;
+            padding: 6px; /* Reduced padding */
             border-radius: 8px;
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
             text-align: center;
-            width: 80%; /* Slightly narrower width */
-            max-width: 480px; /* Adjust max width for smaller screens */
+            width: 70%; /* Further reduced width */
+            max-width: 360px; /* Smaller max width */
         }
         .input-container {
             display: flex;
             justify-content: space-between; /* Space items evenly */
-            margin-bottom: 8px;
+            margin-bottom: 4px; /* Reduced margin */
         }
         .input-display {
-            padding: 8px;
+            padding: 4px; /* Reduced padding */
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 14px; /* Smaller font size */
-            height: 30px; /* Reduced height */
-            line-height: 30px; /* Center text vertically */
+            font-size: 12px; /* Smaller font size */
+            height: 28px; /* Further reduced height */
+            line-height: 28px; /* Center text vertically */
             background-color: #fafafa;
             width: 45%; /* Adjusted width */
             transition: background-color 0.3s;
         }
         .input-display.active {
-            background-color: #e0f7fa;
+            background-color: #e0f7fa; /* Highlight color */
         }
         h2 {
-            font-size: 14px; /* Smaller heading size */
-            margin-bottom: 6px;
+            font-size: 12px; /* Smaller heading size */
+            margin-bottom: 4px; /* Reduced margin */
         }
         .result {
-            font-size: 14px; /* Smaller result size */
-            margin-top: 6px;
+            font-size: 12px; /* Smaller result size */
+            margin-top: 4px; /* Reduced margin */
         }
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 4px; /* Reduced gap */
-            margin-top: 8px;
+            gap: 2px; /* Reduced gap */
+            margin-top: 6px; /* Reduced margin */
         }
         .keypad button {
-            padding: 8px; /* Smaller padding */
-            font-size: 16px; /* Slightly smaller font size */
+            padding: 6px; /* Smaller padding */
+            font-size: 14px; /* Slightly smaller font size */
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #f9f9f9;
             cursor: pointer;
         }
         .keypad button:hover {
-            background-color: #e0e0e0;
+            background-color: #e0e0e0; /* Hover effect */
         }
     </style>
 </head>
 <body>
 
 <div class="calculator">
-    <h2>Venturi Mix Ratio Calculator</h2>
+    <h2>Venturi Mix Ratio</h2>
     
     <div class="input-container">
         <div>
-            <label>Total Volume Delivered (L):</label>
+            <label>Total Volume (L):</label>
             <div class="input-display" id="volumeDeliveredDisplay">0</div>
         </div>
         <div>
-            <label>Concentrate Used (L):</label>
+            <label>Concentrate (L):</label>
             <div class="input-display" id="concentrateUsedDisplay">0</div>
         </div>
     </div>
