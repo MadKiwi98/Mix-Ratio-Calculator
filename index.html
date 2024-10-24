@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ratio Calculator</title>
+    <title>Venturi Mix Ratio Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,15 +38,15 @@
 <body>
 
 <div class="calculator">
-    <h2>Ratio Calculator</h2>
+    <h2>Venturi Mix Ratio Calculator</h2>
     
-    <label for="volumeDelivered">Volume Delivered (L):</label>
-    <input type="number" id="volumeDelivered" placeholder="Enter volume delivered" oninput="calculateRatio()" step="any">
+    <label for="volumeDelivered">Total Volume Delivered (L):</label>
+    <input type="number" id="volumeDelivered" placeholder="Enter total volume delivered" oninput="calculateRatio()" step="any">
     
     <label for="concentrateUsed">Concentrate Used (L):</label>
     <input type="number" id="concentrateUsed" placeholder="Enter concentrate used" oninput="calculateRatio()" step="any">
     
-    <div class="result" id="result">Ratio: 1:0</div>
+    <div class="result" id="result">Ratio: 0:1</div>
 </div>
 
 <script>
@@ -54,11 +54,12 @@
         let volumeDelivered = parseFloat(document.getElementById('volumeDelivered').value);
         let concentrateUsed = parseFloat(document.getElementById('concentrateUsed').value);
         
-        if (!isNaN(volumeDelivered) && !isNaN(concentrateUsed) && concentrateUsed > 0) {
-            let ratio = (volumeDelivered / concentrateUsed).toFixed(2);
-            document.getElementById('result').innerText = `Ratio: 1:${ratio}`;
+        if (!isNaN(volumeDelivered) && !isNaN(concentrateUsed) && concentrateUsed > 0 && volumeDelivered > concentrateUsed) {
+            let waterUsed = volumeDelivered - concentrateUsed;  // Water is total delivered minus concentrate
+            let ratio = (waterUsed / concentrateUsed).toFixed(2); // Water-to-chemical ratio
+            document.getElementById('result').innerText = `Ratio: ${ratio}:1`;
         } else {
-            document.getElementById('result').innerText = 'Ratio: 1:0';
+            document.getElementById('result').innerText = 'Ratio: 0:1';
         }
     }
 </script>
